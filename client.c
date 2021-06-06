@@ -13,7 +13,8 @@ void send_char(int pid, char c)
         if (c & (1 << i))
         {
             printf("1");
-            if (kill(pid, SIGUSR2) == -1) {
+            if (kill(pid, SIGUSR2) == -1)
+            {
                 printf("error occured");
                 exit(EXIT_FAILURE);
             }
@@ -21,7 +22,8 @@ void send_char(int pid, char c)
         else
         {
             printf("0");
-            if (kill(pid, SIGUSR1) == -1) {
+            if (kill(pid, SIGUSR1) == -1)
+            {
                 printf("error occured");
                 exit(EXIT_FAILURE);
             }
@@ -41,7 +43,7 @@ void send_message(int pid, char *message)
         send_char(pid, *message);
         message++;
     }
- //   send_char(pid, '\0');
+    //   send_char(pid, '\0');
 }
 
 void handle_signal(int sig)
@@ -58,7 +60,7 @@ int main(int argc, char **argv)
         return -1;
     }
     int pid = atoi(argv[1]);
-//TODO:    signal(SIGUSR1, handle_signal);
+    //TODO:    signal(SIGUSR1, handle_signal);
     send_message(pid, argv[2]);
     return 0;
 }
