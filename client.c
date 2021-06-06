@@ -43,7 +43,7 @@ void send_message(int pid, char *message)
         send_char(pid, *message);
         message++;
     }
-    //   send_char(pid, '\0');
+    send_char(pid, '\0');
 }
 
 void handle_signal(int sig)
@@ -60,7 +60,8 @@ int main(int argc, char **argv)
         return -1;
     }
     int pid = atoi(argv[1]);
-    //TODO:    signal(SIGUSR1, handle_signal);
+    if (pid == -10)
+        exit(EXIT_FAILURE);
     send_message(pid, argv[2]);
     return 0;
 }

@@ -39,6 +39,9 @@ int main(int argc, char **argv)
             char c = byte / 2;
             write(1, &c, 1);
             i = 8;
+            if (c == '\0') {
+                write(1, "\n", 1);
+            }
             byte = 0;
         }
     }
