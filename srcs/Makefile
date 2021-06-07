@@ -2,9 +2,9 @@ FLAGS = -Wall -Wextra -Werror
 SERVER = server
 CLIENT = client
 
-SRCS = 	utils.c
-
-all : $(SERVER) $(CLIENT)
+SRCS = utils.c
+NAME = $(SERVER) $(CLIENT)
+all : $(NAME)
 
 $(SERVER): 
 		gcc $(FLAGS) -o $(SERVER) server.c $(SRCS)
