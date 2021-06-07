@@ -2,7 +2,7 @@
 
 void	ft_putstr(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return ;
@@ -14,7 +14,7 @@ void	ft_putstr(char *s)
 	}
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int				j;
 	unsigned long	res;
@@ -41,52 +41,25 @@ int		ft_atoi(const char *str)
 	return (res * temp);
 }
 
-static int		ft_count(int n)
+void	ft_putnbr(int n)
 {
 	unsigned int	nbr;
-	int				i;
-
-	i = 1;
+	char			i;
 	if (n < 0)
 	{
-		nbr = -n;
-		i++;
-	}
-	else
-		nbr = n;
-	while (nbr / 10 > 0)
-	{
-		i++;
-		nbr = nbr / 10;
-	}
-	return (i);
-}
-
-char			*ft_itoa(int n)
-{
-	unsigned int	nbr;
-	char			*s;
-	int				count;
-
-	count = ft_count(n);
-	if (!(s = (char *)malloc(count + 1)))
-		return (0);
-	if (n == 0)
-		*s = '0';
-	if (n < 0)
-	{
-		s[0] = '-';
+		write(1, "-", 1);
 		nbr = -n;
 	}
 	else
 		nbr = n;
-	s[count--] = '\0';
-	while (nbr > 0)
+	if (nbr > 9)
 	{
-		if (count == 0 && n < 0)
-			break ;
-		*(s + count--) = nbr % 10 + '0';
-		nbr = nbr / 10;
+		ft_putnbr(nbr / 10);
+		i = nbr % 10 + '0';
+		write(1, &i, 1);
 	}
-	return (s);
+	else {
+		i = nbr + '0';
+		write(1, &i, 1);
+	}
 }
