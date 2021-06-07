@@ -37,6 +37,19 @@ void	send_message(int pid, char *message)
 	}
 }
 
+void	is_number(char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+		{
+			ft_putstr("The pid format is incorrect!");
+			exit(EXIT_FAILURE);
+		}
+		str++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	int	pid;
@@ -46,6 +59,7 @@ int	main(int argc, char **argv)
 		ft_putstr("Wrong args");
 		exit(EXIT_FAILURE);
 	}
+	is_number(argv[1]);
 	pid = ft_atoi(argv[1]);
 	if (pid == -10)
 		exit(EXIT_FAILURE);
