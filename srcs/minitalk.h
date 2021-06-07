@@ -16,4 +16,5 @@ typedef struct s_byte
 void	ft_putstr(char *s);
 int		ft_atoi(const char *str);
 void	ft_putnbr(int n);
+char	*ft_itoa(int n);
 #endif

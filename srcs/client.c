@@ -1,4 +1,5 @@
 #include "minitalk.h"
+#include "stdlib.h"
 
 void	send_char(int pid, char c)
 {
@@ -23,7 +24,7 @@ void	send_char(int pid, char c)
 				exit(EXIT_FAILURE);
 			}
 		}
-		usleep(600);
+		usleep(100);
 	}
 }
 
@@ -34,13 +35,6 @@ void	send_message(int pid, char *message)
 		send_char(pid, *message);
 		message++;
 	}
-	send_char(pid, '\0');
-}
-
-void	handle_signal(int sig)
-{
-	if (sig == SIGUSR1)
-		ft_putstr("Data received successfully");
 }
 
 int	main(int argc, char **argv)
@@ -55,6 +49,10 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	if (pid == -10)
 		exit(EXIT_FAILURE);
+	send_message(pid, ft_itoa((int)getpid()));
+	send_message(pid, ": \0");
 	send_message(pid, argv[2]);
+	send_char(pid, '\0');
+	ft_putstr("Message Received");
 	return (0);
 }
