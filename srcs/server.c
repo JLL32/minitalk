@@ -23,10 +23,8 @@ void handler_sig1(int signum)
 void handler_sig2(int signum)
 {
     if (signum == SIGUSR2)
-    {
         byte += pow(2, i);
         i--;
-    }
 }
 
 int main(void)
@@ -44,9 +42,7 @@ int main(void)
             c = byte / 2;
             write(1, &c, 1);
             if (c == '\0')
-            {
                 write(1, "\n", 1);
-            }
             i = 8;
             byte = 0;
         }
