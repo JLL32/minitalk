@@ -1,7 +1,4 @@
-#include <signal.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 void send_char(int pid, char c)
 {
@@ -12,19 +9,17 @@ void send_char(int pid, char c)
     {
         if (c & (1 << i))
         {
-            printf("1");
             if (kill(pid, SIGUSR2) == -1)
             {
-                printf("error occured");
+                ft_putstr("error occured");
                 exit(EXIT_FAILURE);
             }
         }
         else
         {
-            printf("0");
             if (kill(pid, SIGUSR1) == -1)
             {
-                printf("error occured");
+                ft_putstr("error occured");
                 exit(EXIT_FAILURE);
             }
         }
@@ -34,10 +29,6 @@ void send_char(int pid, char c)
 
 void send_message(int pid, char *message)
 {
-    int i;
-
-    printf("%d\n", *message);
-
     while (*message)
     {
         send_char(pid, *message);
@@ -49,17 +40,19 @@ void send_message(int pid, char *message)
 void handle_signal(int sig)
 {
     if (sig == SIGUSR1)
-        printf("Data received successfully");
+        ft_putstr("Data received successfully");
 }
 
 int main(int argc, char **argv)
 {
+    int pid;
+
     if (argc != 3)
     {
-        printf("wrong args");
-        return -1;
+        ft_putstr("Wrong args");
+        exit(EXIT_FAILURE);
     }
-    int pid = atoi(argv[1]);
+    pid = ft_atoi(argv[1]);
     if (pid == -10)
         exit(EXIT_FAILURE);
     send_message(pid, argv[2]);
