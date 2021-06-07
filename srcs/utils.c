@@ -45,6 +45,7 @@ void	ft_putnbr(int n)
 {
 	unsigned int	nbr;
 	char			i;
+
 	if (n < 0)
 	{
 		write(1, "-", 1);
@@ -58,7 +59,8 @@ void	ft_putnbr(int n)
 		i = nbr % 10 + '0';
 		write(1, &i, 1);
 	}
-	else {
+	else
+	{
 		i = nbr + '0';
 		write(1, &i, 1);
 	}
