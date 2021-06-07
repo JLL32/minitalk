@@ -18,7 +18,7 @@ void	handler_sig1(int signum)
 void	handler_sig2(int signum)
 {
 	if (signum == SIGUSR2)
-		g_byte.code += pow(2, g_byte.i);
+		g_byte.code += ft_pow(2, g_byte.i);
 	g_byte.i--;
 }
 

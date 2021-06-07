@@ -48,3 +48,13 @@ char	*ft_itoa(int n)
 	}
 	return (s);
 }
+
+int ft_pow(int base, int exponent)
+{
+	int	result;
+
+	result = 1;
+	while (exponent--)
+		result = result * base;
+	return (result);
+}

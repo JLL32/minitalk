@@ -1,7 +1,7 @@
 #include "minitalk.h"
 #include "stdlib.h"
 
-void	send_char(int pid, char c)
+void	send_char(int server_pid, char c, char *client_pid)
 {
 	int	i;
 
@@ -10,17 +10,19 @@ void	send_char(int pid, char c)
 	{
 		if (c & (1 << i))
 		{
-			if (kill(pid, SIGUSR2) == -1)
+			if (kill(server_pid, SIGUSR2) == -1)
 			{
 				ft_putstr("error occured");
+				free(client_pid);
 				exit(EXIT_FAILURE);
 			}
 		}
 		else
 		{
-			if (kill(pid, SIGUSR1) == -1)
+			if (kill(server_pid, SIGUSR1) == -1)
 			{
 				ft_putstr("error occured");
+				free(client_pid);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -28,11 +30,11 @@ void	send_char(int pid, char c)
 	}
 }
 
-void	send_message(int pid, char *message)
+void	send_message(int server_pid, char *message, char *client_pid)
 {
 	while (*message)
 	{
-		send_char(pid, *message);
+		send_char(server_pid, *message, client_pid);
 		message++;
 	}
 }
@@ -52,7 +54,8 @@ void	is_number(char *str)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	int		server_pid;
+	char	*client_pid;
 
 	if (argc != 3)
 	{
@@ -60,13 +63,18 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	is_number(argv[1]);
-	pid = ft_atoi(argv[1]);
-	if (pid == -10)
+	server_pid = ft_atoi(argv[1]);
+	if (server_pid <= 0)
+	{
+		ft_putstr("The pid format is incorrect!");
 		exit(EXIT_FAILURE);
-	send_message(pid, ft_itoa((int)getpid()));
-	send_message(pid, ": \0");
-	send_message(pid, argv[2]);
-	send_char(pid, '\0');
+	}
+	client_pid = ft_itoa((int) getpid());
+	send_message(server_pid, client_pid, client_pid);
+	free(client_pid);
+	send_message(server_pid, ": \0", client_pid);
+	send_message(server_pid, argv[2], client_pid);
+	send_char(server_pid, '\0', client_pid);
 	ft_putstr("Message Received");
 	return (0);
 }

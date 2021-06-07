@@ -17,4 +17,5 @@ void	ft_putstr(char *s);
 int		ft_atoi(const char *str);
 void	ft_putnbr(int n);
 char	*ft_itoa(int n);
+int		ft_pow(int base, int exponent);
 #endif
