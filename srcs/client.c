@@ -41,6 +41,11 @@ void	send_message(int server_pid, char *message, char *client_pid)
 
 static void	is_id(char *str)
 {
+	if (*str == '0')
+	{
+		ft_putstr("The pid format is incorrect!");
+		exit(EXIT_FAILURE);
+	}
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
@@ -64,11 +69,6 @@ int	main(int argc, char **argv)
 	}
 	is_id(argv[1]);
 	server_pid = ft_atoi(argv[1]);
-	if (server_pid <= 0)
-	{
-		ft_putstr("The pid format is incorrect!");
-		exit(EXIT_FAILURE);
-	}
 	client_pid = ft_itoa((int) getpid());
 	send_message(server_pid, client_pid, client_pid);
 	free(client_pid);
