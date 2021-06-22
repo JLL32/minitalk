@@ -39,7 +39,7 @@ void	send_message(int server_pid, char *message, char *client_pid)
 	}
 }
 
-void	is_number(char *str)
+static void	is_id(char *str)
 {
 	while (*str)
 	{
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 		ft_putstr("Wrong args");
 		exit(EXIT_FAILURE);
 	}
-	is_number(argv[1]);
+	is_id(argv[1]);
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
 	{
