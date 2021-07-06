@@ -49,7 +49,7 @@ char	*ft_itoa(int n)
 	return (s);
 }
 
-int ft_pow(int base, int exponent)
+int	ft_pow(int base, int exponent)
 {
 	int	result;
 
