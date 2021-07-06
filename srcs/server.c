@@ -1,6 +1,6 @@
 #include "minitalk.h"
 
-t_byte	g_byte = {0, 8};
+t_byte	g_byte = {0, 7};
 
 void	print_pid(void)
 {
@@ -18,26 +18,24 @@ void	handler_sig1(int signum)
 void	handler_sig2(int signum)
 {
 	if (signum == SIGUSR2)
-		g_byte.code += ft_pow(2, g_byte.i);
+		g_byte.code |= 0b1 << g_byte.i;
 	g_byte.i--;
 }
 
 int	main(void)
 {
-	char	c;
+	int		c;
 
 	signal(SIGUSR2, handler_sig2);
 	signal(SIGUSR1, handler_sig1);
 	print_pid();
 	while (true)
 	{
-		if (g_byte.i == 0)
+		if (g_byte.i == -1)
 		{
-			c = g_byte.code / 2;
+			c = g_byte.code;
 			write(1, &c, 1);
-			if (c == '\0')
-				write(1, "\n", 1);
-			g_byte.i = 8;
+			g_byte.i = 7;
 			g_byte.code = 0;
 		}
 	}
