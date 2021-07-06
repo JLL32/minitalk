@@ -72,9 +72,9 @@ int	main(int argc, char **argv)
 	client_pid = ft_itoa((int) getpid());
 	send_message(server_pid, client_pid, client_pid);
 	free(client_pid);
-	send_message(server_pid, ": \0", client_pid);
+	send_message(server_pid, ": ", client_pid);
 	send_message(server_pid, argv[2], client_pid);
-	send_char(server_pid, '\0', client_pid);
+	send_message(server_pid, "\n", client_pid);
 	ft_putstr("Message Received");
 	return (0);
 }
